@@ -8,8 +8,6 @@ Calcy is a simple yet powerful calculator application built with ReactJS and sty
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -32,11 +30,13 @@ To get started with Calcy, follow these steps:
 
    bash/command prompt
    [git clone https://github.com/yourusername/calcy.git](https://github.com/uttam-marakana/Calcy.git)
-2. install npm/yarn :
+
+## Usage 
+1. install npm/yarn :
    
    if you can use npm then use npm or npm i,
    and if you can use yarn then yarn.
    
-3. run the project :
+2. run the project :
    for npm - npm run dev
    for yarn - yarn dev
