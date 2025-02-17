@@ -65,37 +65,15 @@ button:active {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-button:nth-child(4n) {
-  background-color: #007aff;
-  color: white;
-}
 
-button:nth-child(4n):hover {
-  background-color: #0051a8;
-}
-
-button:nth-child(4n + 1) {
-  background-color: #ff3b30;
-  color: white;
-}
-
-button:nth-child(4n + 1):hover {
-  background-color: #c72c2e;
-}
-
-@media (max-width: 400px) {
-  .calculator {
-    width: 90%;
-    padding: 10px;
-  }
-
+@media (max-width: 425px) {
   .display {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
 
   button {
-    font-size: 1.5rem;
     padding: 15px;
+    font-size: 1.2rem;
   }
 
   .buttons {
