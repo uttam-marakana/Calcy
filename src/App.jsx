@@ -1,13 +1,12 @@
-import React from 'react'
-import Calcy from './pages/Calcy'
+import React from "react";
+import Calcy from "./pages/Calcy";
 
 function App() {
-
   return (
-   <>
-    <Calcy />
-   </>
-  )
+    <>
+      <Calcy />
+    </>
+  );
 }
 
-export default App
+export default App;
