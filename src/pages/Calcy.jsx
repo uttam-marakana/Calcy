@@ -47,7 +47,12 @@ const Calcy = () => {
         if ("+-*/".includes(value) && "+-*/".includes(lastChar)) {
           setInput(input.slice(0, -1) + value);
         } else {
-          setInput(input + value);
+          if (result) {
+            setInput(result + value);
+            setResult("");
+          } else {
+            setInput(input + value);
+          }
         }
       }
     }
