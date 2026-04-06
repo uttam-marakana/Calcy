@@ -8,7 +8,10 @@ function App() {
         <div>
           <p className="eyebrow">Modern</p>
           <h1>Calcy</h1>
-          <p className="subtitle">Advanced expression calculator with history, memory, and scientific shortcuts.</p>
+          <p className="subtitle">
+            Advanced expression calculator with history, memory, and scientific
+            shortcuts.
+          </p>
         </div>
       </header>
       <Calcy />
