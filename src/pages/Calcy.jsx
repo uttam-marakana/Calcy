@@ -65,168 +65,176 @@ function Calcy() {
         .replace(/(\d+(?:\.\d+)?)%/g, "($1*0.01)")
         .replace(/Ans/g, lastResult !== null ? String(lastResult) : "0")
         .replace(/x²/g, "**2"),
-    [lastResult]
+    [lastResult],
   );
 
   const evaluateExpression = useCallback(
     (expression) => {
-      const sanitized = formatExpression(expression).replace(/[+\-*/^.]+$/g, "");
+      const sanitized = formatExpression(expression).replace(
+        /[+\-*/^.]+$/g,
+        "",
+      );
       if (!sanitized) {
         throw new Error("Invalid expression");
       }
 
       const value = Function('"use strict"; return (' + sanitized + ")")();
-      if (typeof value !== "number" || Number.isNaN(value) || !Number.isFinite(value)) {
+      if (
+        typeof value !== "number" ||
+        Number.isNaN(value) ||
+        !Number.isFinite(value)
+      ) {
         throw new Error("Calculation error");
       }
 
       return Number(value.toPrecision(12));
     },
-    [formatExpression]
+    [formatExpression],
   );
 
   const pushHistory = useCallback((expression, value) => {
-    setHistory((previous) => [
-      { expression, value },
-      ...previous.slice(0, 5),
-    ]);
+    setHistory((previous) => [{ expression, value }, ...previous.slice(0, 5)]);
   }, []);
 
   const handleButtonClick = useCallback(
     (value) => {
-    const lastChar = input.slice(-1);
-    const operators = ["+", "-", "×", "÷", "^"];
+      const lastChar = input.slice(-1);
+      const operators = ["+", "-", "×", "÷", "^"];
 
-    if (value === "C") {
-      setInput("");
-      setResult("");
-      return;
-    }
-
-    if (value === "CE") {
-      setInput((current) => current.slice(0, -1));
-      return;
-    }
-
-    if (value === "MC") {
-      setMemory(0);
-      return;
-    }
-
-    if (value === "MR") {
-      if (lastResult !== null) {
-        setInput((current) => current + String(memory));
-      }
-      return;
-    }
-
-    if (value === "M+") {
-      const currentValue = result || input;
-      try {
-        const numeric = evaluateExpression(currentValue || "0");
-        setMemory((m) => m + numeric);
-      } catch {
-        setResult("Error");
-      }
-      return;
-    }
-
-    if (value === "M-") {
-      const currentValue = result || input;
-      try {
-        const numeric = evaluateExpression(currentValue || "0");
-        setMemory((m) => m - numeric);
-      } catch {
-        setResult("Error");
-      }
-      return;
-    }
-
-    if (value === "toggle") {
-      const numberMatch = input.match(/(-?\d+(?:\.\d+)?)$/);
-      if (!numberMatch) return;
-      const number = numberMatch[1];
-      const prefix = input.slice(0, -number.length);
-      setInput(prefix + (number.startsWith("-") ? number.slice(1) : "-" + number));
-      return;
-    }
-
-    if (value === "sqrt") {
-      setInput((current) => current + "√(");
-      return;
-    }
-
-    if (value === "square") {
-      if (!input) return;
-      setInput((current) => current + "**2");
-      return;
-    }
-
-    if (value === "reciprocal") {
-      if (!input) return;
-      setInput((current) => `1/(${current})`);
-      return;
-    }
-
-    if (value === "Ans") {
-      if (lastResult !== null) {
-        setInput((current) => current + String(lastResult));
-      }
-      return;
-    }
-
-    if (value === "=") {
-      try {
-        const numeric = evaluateExpression(input);
-        setResult(numeric);
-        setLastResult(numeric);
-        pushHistory(input, numeric);
-        setInput(String(numeric));
-      } catch {
-        setResult("Error");
-      }
-      return;
-    }
-
-    if (value === ".") {
-      const lastNumber = input.split(/[+\-×÷^/*]/).pop();
-      if (!lastNumber.includes(".")) {
-        setInput((current) => current + value);
-      }
-      return;
-    }
-
-    if (operators.includes(value)) {
-      if (!input && value !== "-") {
-        return;
-      }
-      if (operators.includes(lastChar) || lastChar === ".") {
-        setInput((current) => current.slice(0, -1) + value);
-      } else {
-        setInput((current) => current + value);
-      }
-      return;
-    }
-
-    if (/\d/.test(value)) {
-      if (result && input === String(result)) {
+      if (value === "C") {
+        setInput("");
         setResult("");
-        setInput(value);
         return;
       }
-      setInput((current) => current + value);
-      return;
-    }
 
-    setInput((current) => current + value);
-  }, [input, result, memory, lastResult, evaluateExpression, pushHistory]);
+      if (value === "CE") {
+        setInput((current) => current.slice(0, -1));
+        return;
+      }
+
+      if (value === "MC") {
+        setMemory(0);
+        return;
+      }
+
+      if (value === "MR") {
+        if (lastResult !== null) {
+          setInput((current) => current + String(memory));
+        }
+        return;
+      }
+
+      if (value === "M+") {
+        const currentValue = result || input;
+        try {
+          const numeric = evaluateExpression(currentValue || "0");
+          setMemory((m) => m + numeric);
+        } catch {
+          setResult("Error");
+        }
+        return;
+      }
+
+      if (value === "M-") {
+        const currentValue = result || input;
+        try {
+          const numeric = evaluateExpression(currentValue || "0");
+          setMemory((m) => m - numeric);
+        } catch {
+          setResult("Error");
+        }
+        return;
+      }
+
+      if (value === "toggle") {
+        const numberMatch = input.match(/(-?\d+(?:\.\d+)?)$/);
+        if (!numberMatch) return;
+        const number = numberMatch[1];
+        const prefix = input.slice(0, -number.length);
+        setInput(
+          prefix + (number.startsWith("-") ? number.slice(1) : "-" + number),
+        );
+        return;
+      }
+
+      if (value === "sqrt") {
+        setInput((current) => current + "√(");
+        return;
+      }
+
+      if (value === "square") {
+        if (!input) return;
+        setInput((current) => current + "**2");
+        return;
+      }
+
+      if (value === "reciprocal") {
+        if (!input) return;
+        setInput((current) => `1/(${current})`);
+        return;
+      }
+
+      if (value === "Ans") {
+        if (lastResult !== null) {
+          setInput((current) => current + String(lastResult));
+        }
+        return;
+      }
+
+      if (value === "=") {
+        try {
+          const numeric = evaluateExpression(input);
+          setResult(numeric);
+          setLastResult(numeric);
+          pushHistory(input, numeric);
+          setInput(String(numeric));
+        } catch {
+          setResult("Error");
+        }
+        return;
+      }
+
+      if (value === ".") {
+        const lastNumber = input.split(/[+\-×÷^/*]/).pop();
+        if (!lastNumber.includes(".")) {
+          setInput((current) => current + value);
+        }
+        return;
+      }
+
+      if (operators.includes(value)) {
+        if (!input && value !== "-") {
+          return;
+        }
+        if (operators.includes(lastChar) || lastChar === ".") {
+          setInput((current) => current.slice(0, -1) + value);
+        } else {
+          setInput((current) => current + value);
+        }
+        return;
+      }
+
+      if (/\d/.test(value)) {
+        if (result && input === String(result)) {
+          setResult("");
+          setInput(value);
+          return;
+        }
+        setInput((current) => current + value);
+        return;
+      }
+
+      setInput((current) => current + value);
+    },
+    [input, result, memory, lastResult, evaluateExpression, pushHistory],
+  );
 
   useEffect(() => {
     if (calculatorRef.current) {
       calculatorRef.current.focus();
     }
 
-      const handleKeyPress = (event) => {
+    const handleKeyPress = (event) => {
       const { key } = event;
       if (key === "Enter") {
         handleButtonClick("=");
@@ -268,7 +276,9 @@ function Calcy() {
         </div>
         <div className="display-panel">
           <div className="small-display">{input || "0"}</div>
-          <div className="large-display">{result !== "" ? result : input || "0"}</div>
+          <div className="large-display">
+            {result !== "" ? result : input || "0"}
+          </div>
         </div>
         <div className="history-panel">
           <h2>Recent</h2>
@@ -289,7 +299,9 @@ function Calcy() {
           <button
             key={button.label}
             type="button"
-            className={button.variant ? `button-${button.variant}` : "button-standard"}
+            className={
+              button.variant ? `button-${button.variant}` : "button-standard"
+            }
             onClick={() => handleButtonClick(button.value)}
           >
             {button.label}
