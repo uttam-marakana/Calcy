@@ -1,42 +1,58 @@
 # Calcy
 
-Calcy is a simple yet powerful calculator application built with ReactJS and styled using core CSS. It provides a user-friendly interface for performing basic arithmetic operations.
-
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
+Calcy is a modern calculator built with React and Vite. It combines a clean interface with advanced expression support, memory shortcuts, and recent-operation history.
 
 ## Features
 
-- Basic arithmetic operations: Addition, Subtraction, Multiplication, Division
-- Clear and user-friendly interface
-- Responsive design for mobile and desktop
-- Lightweight and fast performance
+- Arithmetic operations: addition, subtraction, multiplication, and division
+- Parentheses support for nested expressions
+- Exponent operator `^` and square `x²`
+- Square root input via `√(`
+- Scientific functions: `sin`, `cos`, `tan`, and `log`
+- Percentage support and reciprocal calculation (`1/x`)
+- Memory controls: `MC`, `MR`, `M+`, and `M-`
+- Answer recall with `Ans`
+- Keyboard support for digits, operators, Enter, Backspace, and Delete
+- Responsive layout with modern UI styling
 
 ## Technologies Used
 
-- [ReactJS](https://reactjs.org/) - A JavaScript library for building user interfaces
-- Core CSS - For styling the application
-- [Create React App](https://create-react-app.dev/) - Bootstrapped the project
+- React 19
+- Vite
+- Core CSS styling
 
 ## Installation
 
-To get started with Calcy, follow these steps:
-
 1. Clone the repository:
 
-   bash/command prompt
-   [git clone https://github.com/yourusername/calcy.git](https://github.com/uttam-marakana/Calcy.git)
+```bash
+git clone https://github.com/uttam-marakana/Calcy.git
+cd Calcy
+```
 
-## Usage 
-1. install npm/yarn :
-   
-   if you can use npm then use npm or npm i,
-   and if you can use yarn then yarn.
-   
-2. run the project :
-   for npm - npm run dev
-   for yarn - yarn dev
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+## Running the app
+
+```bash
+npm run dev
+```
+
+Then open the local host URL shown in the terminal.
+
+## Usage
+
+- Click or type numbers and operators to build an expression.
+- Press `Enter` or click `=` to calculate.
+- Use `C` to clear everything and `⌫` to delete the last character.
+- Use `M+` and `M-` to update memory, `MR` to recall, and `MC` to clear memory.
+- Use `Ans` to reuse the last calculated result.
+
+## Notes
+
+- Expressions such as `(3 + 4) × 5 - √(16)` are supported.
+- The calculator preserves recent results in the history panel for quick review.
